@@ -1,11 +1,9 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const connectDB = require("./database/database");
-const multer = require("multer");
 const productsRouter = require("./routes/products.router");
 const formMiddleware = require("./middleware/formMiddleware");
 
-const upload = multer();
 const app = express();
 
 dotenv.config();

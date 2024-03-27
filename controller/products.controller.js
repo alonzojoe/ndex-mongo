@@ -46,6 +46,23 @@ const productsController = {
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
+    //using multer for form multipar
+    // try {
+    //   const { id } = req.params;
+    //   upload.any()(req, res, async (err) => {
+    //     if (err) {
+    //       return res.status(400).json({ message: "Invalid request" });
+    //     }
+    //     const product = await Product.findByIdAndUpdate(id, req.body);
+    //     if (!product) {
+    //       return res.status(404).json({ message: "No Product Found" });
+    //     }
+    //     const updatedProduct = await Product.findById(id);
+    //     res.status(200).json(updatedProduct);
+    //   });
+    // } catch (error) {
+    //   res.status(500).json({ message: error.message });
+    // }
   },
 
   deleteProductById: async (req, res) => {
