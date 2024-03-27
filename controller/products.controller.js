@@ -1,4 +1,5 @@
 const Product = require("../models/ProductModel");
+const asyncHandler = require("express-async-handler");
 const multer = require("multer");
 const upload = multer();
 
@@ -8,7 +9,8 @@ const productsController = {
       const products = await Product.find();
       res.status(200).json(products);
     } catch (error) {
-      res.status(500).json({ message: error.message });
+      res.status(500);
+      throw new Error(error.message);
     }
   },
 
@@ -17,11 +19,12 @@ const productsController = {
       const product = await Product.create(req.body);
       res.status(201).json(product);
     } catch (error) {
-      res.status(500).json({ message: error.message });
+      res.status(500);
+      throw new Error(error.message);
     }
   },
 
-  productById: async (req, res) => {
+  productById: asyncHandler(async (req, res) => {
     try {
       const { id } = req.params;
       const product = await Product.findById(id);
@@ -30,9 +33,10 @@ const productsController = {
       }
       res.status(200).json(product);
     } catch (error) {
-      res.status(500).json({ message: error.message });
+      res.status(500);
+      throw new Error(error.message);
     }
-  },
+  }),
 
   updateProductById: async (req, res) => {
     try {
@@ -44,7 +48,8 @@ const productsController = {
       const updatedProduct = await Product.findById(id);
       res.status(200).json(updatedProduct);
     } catch (error) {
-      res.status(500).json({ message: error.message });
+      res.status(500);
+      throw new Error(error.message);
     }
     //using multer for form multipar
     // try {
@@ -74,7 +79,8 @@ const productsController = {
       }
       res.status(200).json(product);
     } catch (error) {
-      res.status(200).json({ message: error.message });
+      res.status(500);
+      throw new Error(error.message);
     }
   },
 };
