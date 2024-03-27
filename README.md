@@ -21,6 +21,7 @@ This project is a REST API built using Node.js, Express, and MongoDB. It provide
 3. **Create a .env file in the root directory of the project and specify your environment variables:**
 
    ```plaintext
+   example:
    PORT=3000
    MONGODB_URL=mongodb://localhost:27017/dbname
 
