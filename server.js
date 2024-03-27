@@ -1,6 +1,6 @@
 const express = require("express");
-const mongoose = require("mongoose");
 const dotenv = require("dotenv");
+const connectDB = require("./database/database");
 const multer = require("multer");
 const upload = multer();
 const app = express();
@@ -85,13 +85,9 @@ app.delete("/products/:id", async (req, res) => {
   }
 });
 
-mongoose.set("strictQuery", false);
-mongoose
-  .connect(`${process.env.MONGODB_URL}/dbserver`)
-  .then(() => {
-    console.log("MongoDB connected successfully");
-    app.listen(process.env.PORT, () => {
-      console.log("Server is running on port 3000");
-    });
-  })
-  .catch((error) => console.error("Failed to connect to MongoDB:", error));
+connectDB();
+
+const PORT = process.env.PORT;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
