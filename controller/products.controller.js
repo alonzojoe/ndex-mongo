@@ -4,7 +4,7 @@ const multer = require("multer");
 const upload = multer();
 
 const productsController = {
-  getAllProducts: async (req, res) => {
+  getAllProducts: asyncHandler(async (req, res) => {
     try {
       const products = await Product.find();
       res.status(200).json(products);
@@ -12,9 +12,9 @@ const productsController = {
       res.status(500);
       throw new Error(error.message);
     }
-  },
+  }),
 
-  createProduct: async (req, res) => {
+  createProduct: asyncHandler(async (req, res) => {
     try {
       const product = await Product.create(req.body);
       res.status(201).json(product);
@@ -22,14 +22,15 @@ const productsController = {
       res.status(500);
       throw new Error(error.message);
     }
-  },
+  }),
 
   productById: asyncHandler(async (req, res) => {
     try {
       const { id } = req.params;
       const product = await Product.findById(id);
       if (!product) {
-        return res.status(404).json({ message: "No Product Found" });
+        res.status(404);
+        throw new Error("No Product Found");
       }
       res.status(200).json(product);
     } catch (error) {
@@ -38,12 +39,13 @@ const productsController = {
     }
   }),
 
-  updateProductById: async (req, res) => {
+  updateProductById: asyncHandler(async (req, res) => {
     try {
       const { id } = req.params;
       const product = await Product.findByIdAndUpdate(id, req.body);
       if (!product) {
-        return res.status(404).json({ message: "No Product Found" });
+        res.status(404);
+        throw new Error("No Product Found");
       }
       const updatedProduct = await Product.findById(id);
       res.status(200).json(updatedProduct);
@@ -68,21 +70,22 @@ const productsController = {
     // } catch (error) {
     //   res.status(500).json({ message: error.message });
     // }
-  },
+  }),
 
-  deleteProductById: async (req, res) => {
+  deleteProductById: asyncHandler(async (req, res) => {
     try {
       const { id } = req.params;
       const product = await Product.findByIdAndDelete(id);
       if (!product) {
-        return res.status(404).json({ message: "No Product found" });
+        res.status(404);
+        throw new Error("No Product Found");
       }
       res.status(200).json(product);
     } catch (error) {
       res.status(500);
       throw new Error(error.message);
     }
-  },
+  }),
 };
 
 module.exports = productsController;
