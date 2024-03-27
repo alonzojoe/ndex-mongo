@@ -5,9 +5,8 @@ const productsRouter = require("./routes/products.router");
 const formMiddleware = require("./middleware/formMiddleware");
 
 const app = express();
-
-dotenv.config();
 app.use(formMiddleware);
+dotenv.config();
 
 app.use("/api/v1/products", productsRouter);
 
