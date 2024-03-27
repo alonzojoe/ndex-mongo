@@ -11,25 +11,9 @@ dotenv.config();
 app.use(express.json()); //middleware to accept json requests
 app.use(express.urlencoded({ extended: false })); //middleware to accept urlEncoded data
 
-app.get("/", (req, res) => {
-  res.send("Hello Node Express API");
-});
-
-app.get("/blog", (req, res) => {
-  res.send("Hello Blog");
-});
-
-app.get("/hello", (req, res) => {
-  res.send("Hello hello");
-});
 
 app.get("/products", async (req, res) => {
-  try {
-    const products = await Product.find();
-    res.status(200).json(products);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
+
 });
 
 app.get("/products/:id", async (req, res) => {
